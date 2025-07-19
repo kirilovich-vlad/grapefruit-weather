@@ -22,13 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_LOCATION_NAME = "NAME";
     private static final String COLUMN_LOCATION_COORDINATES = "COORDINATES";
     private static final String COLUMN_LOCATION_LAST_ACCESS_TIME = "LAST_ACCESS_TIME";
-    
-    // Table and column names for the settings table.
-    // Columns in version 1 - Setting ID, Setting name, setting status.
-    private static final String SETTINGS_TABLE = "SETTINGS_TABLE";
-    private static final String COLUMN_SETTING_ID = "ID";
-    private static final String COLUMN_SETTING_NAME = "NAME";
-    private static final String COLUMN_SETTING_STATUS = "STATUS";
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -37,10 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createSettingsTable = "CREATE TABLE " + SETTINGS_TABLE + " (" +
-                COLUMN_SETTING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COLUMN_SETTING_NAME + " TEXT," +
-                COLUMN_SETTING_STATUS + " TEXT)";
 
         String createLocationListTable = "CREATE TABLE " + SAVED_LOCATIONS_TABLE + " (" +
                 COLUMN_LOCATION_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
@@ -48,7 +37,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_LOCATION_COORDINATES + " TEXT," +
                 COLUMN_LOCATION_LAST_ACCESS_TIME + " INTEGER)";
 
-        db.execSQL(createSettingsTable);
         db.execSQL(createLocationListTable);
     }
 
