@@ -8,10 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseHelper mainDatabase;
+    private DatabaseHelper mainDatabase;
+    private RecyclerView recViewSavedLocationList;
+    private SavedLocationAdapter savedLocationAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        mainDatabase = new DatabaseHelper(MainActivity.this);
+        mainDatabase = new DatabaseHelper(this);
+        recViewSavedLocationList = findViewById(R.id.recViewSavedLocationList);
+        recViewSavedLocationList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        savedLocationAdapter = new SavedLocationAdapter(this);
+        recViewSavedLocationList.setAdapter(savedLocationAdapter);
+
     }
 }

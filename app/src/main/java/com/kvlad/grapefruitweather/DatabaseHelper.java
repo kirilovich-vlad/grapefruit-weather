@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -66,6 +67,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
         return result != 0;
+    }
+
+    // Returns ArrayList of every saved location.
+    public List<SavedLocation> getAllLocations() {
+        ArrayList<SavedLocation> result = new ArrayList<>();
+        String query = "SELECT * FROM " +
+                SAVED_LOCATIONS_TABLE;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String coordinates = cursor.getString(2);
+                String lastAccessTime = cursor.getString(3);
+                SavedLocation location = new SavedLocation(id, name, coordinates, lastAccessTime);
+                result.add(location);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return result;
     }
 
     @Override
