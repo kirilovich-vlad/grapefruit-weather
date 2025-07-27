@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.kvlad.grapefruitweather"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.kvlad.grapefruitweather"
