@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Grapefruit Weather</string>
+    <string name="city_name">Name of the city</string>
+    <string name="placeholder_temp">--C</string>
+    <string name="placeholder_weather_status_icon">Current weather status icon</string>
+    <string name="add_new_location">Add new location</string>
+    <string name="location">Location</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="app_logo">App logo</string>
+</resources>
