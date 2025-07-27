@@ -4,13 +4,13 @@ public class SavedLocation {
     private final int id;
     private final String name;
     private final String coordinates;
-    private String last_access_time;
+    private int orderNumber;
 
-    public SavedLocation(int id, String name, String coordinates, String last_access_time) {
+    public SavedLocation(int id, String name, String coordinates, int orderNumber) {
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
-        this.last_access_time = last_access_time;
+        this.orderNumber = orderNumber;
     }
 
     public int getId() {
@@ -25,11 +25,11 @@ public class SavedLocation {
         return coordinates;
     }
 
-    public String getLast_access_time() {
-        return last_access_time;
+    public int getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setLast_access_time(String last_access_time) {
-        this.last_access_time = last_access_time;
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }
