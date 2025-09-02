@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.okhttp)
     implementation(libs.material3)
     implementation(libs.androidx.material3.window.size.class1)
     implementation(libs.androidx.material3.adaptive.navigation.suite)

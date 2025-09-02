@@ -3,8 +3,8 @@ package com.kvlad.grapefruitweather;
 import static java.lang.Thread.sleep;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,11 +14,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class InitialLoadingScreen extends AppCompatActivity {
+
+// Activity that checks if API key is valid and calls either Add_OWM_API_Key_Activity
+// or MainActivity based on the outcome.
+public class InitialLoadingActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> launcher;
+    private SharedPreferences sharedPref;
 
     private void proceedToMainMenu() {
-        Intent intent = new Intent(InitialLoadingScreen.this, MainActivity.class);
+        Intent intent = new Intent(InitialLoadingActivity.this, MainActivity.class);
+        launcher.launch(intent);
+    }
+
+    private void proceedToAPIKeyScreen() {
+        Intent intent = new Intent(InitialLoadingActivity.this, AddOWMAPIKeyActivity.class);
         launcher.launch(intent);
     }
 
@@ -36,17 +45,22 @@ public class InitialLoadingScreen extends AppCompatActivity {
         // Processes result from AddLocationActivity.
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    finish();
+                    if (result.getData() != null) {
+                        if (result.getData().getStringExtra("task").equals("SET_API_KEY")) {
+                            proceedToMainMenu();
+                        }
+                    } else {
+                        finish();
+                    }
                 }
         );
 
-        new Thread(() -> {
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                Log.d("Sleep", "Sleep interruped exception: " + e.getMessage());
-            }
+        sharedPref = InitialLoadingActivity.this.getSharedPreferences("preferences", MODE_PRIVATE);
+        if (sharedPref.getString("OWM_API_KEY", null) == null) {
+            proceedToAPIKeyScreen();
+        } else {
             proceedToMainMenu();
-        }).start();
+        }
+
     }
 }
